@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/lib/utils";
 import { Separator } from "./ui/separator";
 import Button from "./ui/button";
 
@@ -35,8 +34,6 @@ export const PageSelector = () => {
       setSelectedPages(new Set(pages));
     }
   };
-
-  const [buttonState, setButtonState] = useState("default");
 
   return (
     <div className="min-h-screen text-[14px] leading-[130%] tracking-[0px] flex items-center  justify-center border border-[#EEEEEE]">
@@ -91,21 +88,6 @@ export const PageSelector = () => {
         </div>
         {/* Done button */}
         <div className=" w-[370px]  px-[15px] py-[10px]">
-          {/* <button
-            className={cn(
-              "w-[340px] h-10 rounded-[4px] px-5 py-2.5 leading-5 rounded-[4px]  transition-none",
-              buttonState === "default" && "bg-[hsl(var(--yellow-button))]",
-              buttonState === "hover" && "bg-[hsl(var(--yellow-button-hover))]",
-              buttonState === "active" &&
-                "bg-[hsl(var(--yellow-button-active))]"
-            )}
-            onMouseEnter={() => setButtonState("hover")}
-            onMouseLeave={() => setButtonState("default")}
-            onMouseDown={() => setButtonState("active")}
-            onMouseUp={() => setButtonState("hover")}
-          >
-            Done
-          </button> */}
           <Button />
         </div>
       </div>
