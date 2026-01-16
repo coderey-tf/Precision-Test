@@ -159,7 +159,7 @@ code {
     --yellow-button-hover: 47 100% 65%;
     --yellow-button-active: 47 100% 57%;
     --checkbox-border: 0 0% 85%;
-    --checkbox-checked-bg: 217 91% 60%;
+    --checkbox-checked-bg: 220, 92%, 55%, 1;
     --separator-color: 0 0% 90%;
     --text-primary: 0 0% 20%;
     --text-secondary: 0 0% 50%;

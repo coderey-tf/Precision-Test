@@ -9,22 +9,59 @@ function Checkbox({
   ...props
 }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
   return (
-    <CheckboxPrimitive.Root
-      data-slot="checkbox"
-      className={cn(
-        "peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[6px] border opacity-60 shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
-        "w-[23px] h-[23px]",
-        className
-      )}
-      {...props}
-    >
-      <CheckboxPrimitive.Indicator
-        data-slot="checkbox-indicator"
-        className="grid place-content-center text-current transition-none"
+    <div className="flex h-[35px] w-[35px] items-center justify-center">
+      <CheckboxPrimitive.Root
+        data-slot="checkbox"
+        className={cn(
+          // Base layout + shape
+          "h-[23px] w-[23px] shrink-0 rounded-[6px] border outline-none",
+
+          // Cursor + disabled
+          "!cursor-pointer disabled:cursor-not-allowed disabled:opacity-50",
+
+          // Base colors (unchecked)
+          "border-[hsl(var(--checkbox-border))]",
+
+          // Checked state colors
+          "data-[state=checked]:bg-[hsl(var(--checkbox-checked-bg))]",
+          "data-[state=checked]:border-[hsl(var(--checkbox-checked-bg))]",
+          "data-[state=checked]:text-white",
+
+          // Focus ring (keyboard)
+          "focus-visible:ring-[3px] focus-visible:ring-ring/50",
+
+          // Interaction driven by parent `.group` (row)
+          "group-hover:border-[#BDBDBD]",
+          "data-[state=checked]:group-hover:bg-[#2469F6]",
+          "data-[state=checked]:group-hover:text-[#E3E3E3]",
+
+          // Pressed/active effect driven by parent `.group`
+          "group-active:shadow-[0_0_0_3px_rgba(36,105,246,0.10)]",
+          "group-active:transition-none",
+          "group-active:text-[#878787]",
+
+          // Motion
+          "transition-shadow",
+
+          className
+        )}
+        {...props}
       >
-        <CheckIcon className="size-3.5" />
-      </CheckboxPrimitive.Indicator>
-    </CheckboxPrimitive.Root>
+        <CheckboxPrimitive.Indicator
+          forceMount
+          data-slot="checkbox-indicator"
+          className={cn(
+            "grid place-content-center",
+            "transition-[opacity,transform,filter] duration-150",
+
+            "group-hover:opacity-100",
+            "data-[state=checked]:opacity-100"
+          )}
+        >
+          <CheckIcon className="size-3.5 text-white" />
+        </CheckboxPrimitive.Indicator>
+      </CheckboxPrimitive.Root>
+    </div>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { Separator } from "./ui/separator";
+import Button from "./ui/button";
 
 export const PageSelector = () => {
   const [selectedPages, setSelectedPages] = useState(new Set());
@@ -41,40 +42,44 @@ export const PageSelector = () => {
     <div className="min-h-screen text-[14px] leading-[130%] tracking-[0px] flex items-center  justify-center border border-[#EEEEEE]">
       <div className="w-fit h-fit m-auto bg-white py-2.5 rounded-lg shadow-[0_8px_15px_0_hsla(0,0%,8%,0.12),0_0_4px_0_hsla(0,0%,8%,0.10)] flex flex-col">
         {/* All pages option */}
-        <div className="flex items-center justify-between  pr-[20.5px] pl-[22px] py-[10px] ">
-          <label
-            htmlFor="all-pages"
-            className="font-normal text-[hsl(var(--text-primary))] cursor-pointer select-none"
-          >
-            All pages
-          </label>
+        <div
+          className="group flex items-center justify-between cursor-pointer pr-[15px] pl-[22px] py-[3.5px] "
+          onClick={handleAllPagesToggle}
+        >
+          <span className="font-normal text-[hsl(var(--text-primary))]">
+            All Pages
+          </span>
           <Checkbox
-            id="all-pages"
             checked={isAllPagesChecked}
             onCheckedChange={handleAllPagesToggle}
-            className="  border-[hsl(var(--checkbox-border))] data-[state=checked]:bg-[hsl(var(--checkbox-checked-bg))] data-[state=checked]:border-[hsl(var(--checkbox-checked-bg))] data-[state=checked]:text-white shadow-none"
+            onClick={handleAllPagesToggle}
           />
         </div>
         <div className="px-[15px] py-[10px]">
           <Separator />
         </div>
 
-        {/* Scrollable pages list */}
         <div className="h-[164px] w-[370px]  overflow-y-auto custom-scrollbar">
           {pages.map((page, index) => (
             <React.Fragment key={page}>
-              <div className="flex h-[42px] w-[370px] items-center justify-between pr-[20.5px] pl-[22px] py-2 ">
-                <label
-                  htmlFor={`page-${index + 1}`}
-                  className="  font-normal text-[hsl(var(--text-primary))] cursor-pointer select-none"
-                >
+              <div
+                className="group flex h-[42px] w-[370px] items-center justify-between pr-[15px] pl-[22px] py-2 cursor-pointer"
+                onClick={() => handlePageToggle(page)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    handlePageToggle(page);
+                }}
+              >
+                <span className="font-normal text-[hsl(var(--text-primary))]">
                   {page}
-                </label>
+                </span>
+
                 <Checkbox
-                  id={`page-${index + 1}`}
                   checked={selectedPages.has(page)}
                   onCheckedChange={() => handlePageToggle(page)}
-                  className=" border-[hsl(var(--checkbox-border))] data-[state=checked]:bg-[hsl(var(--checkbox-checked-bg))] data-[state=checked]:border-[hsl(var(--checkbox-checked-bg))] data-[state=checked]:text-white shadow-none"
+                  onClick={(e) => e.stopPropagation()}
                 />
               </div>
             </React.Fragment>
@@ -86,10 +91,9 @@ export const PageSelector = () => {
         </div>
         {/* Done button */}
         <div className=" w-[370px]  px-[15px] py-[10px]">
-          <button
+          {/* <button
             className={cn(
               "w-[340px] h-10 rounded-[4px] px-5 py-2.5 leading-5 rounded-[4px]  transition-none",
-              "text-[hsl(var(--text-primary))]",
               buttonState === "default" && "bg-[hsl(var(--yellow-button))]",
               buttonState === "hover" && "bg-[hsl(var(--yellow-button-hover))]",
               buttonState === "active" &&
@@ -101,7 +105,8 @@ export const PageSelector = () => {
             onMouseUp={() => setButtonState("hover")}
           >
             Done
-          </button>
+          </button> */}
+          <Button />
         </div>
       </div>
     </div>
