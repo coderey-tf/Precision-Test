@@ -1,0 +1,109 @@
+import React, { useState, useEffect } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
+import { Separator } from "./ui/separator";
+
+export const PageSelector = () => {
+  const [selectedPages, setSelectedPages] = useState(new Set());
+  const [isAllPagesChecked, setIsAllPagesChecked] = useState(false);
+
+  const pages = ["Page 1", "Page 2", "Page 3", "Page 4", "Page 5", "Page 6"];
+
+  useEffect(() => {
+    if (selectedPages.size === pages.length && pages.length > 0) {
+      setIsAllPagesChecked(true);
+    } else {
+      setIsAllPagesChecked(false);
+    }
+  }, [selectedPages, pages.length]);
+
+  const handlePageToggle = (page: string) => {
+    const newSelected = new Set(selectedPages);
+    if (newSelected.has(page)) {
+      newSelected.delete(page);
+    } else {
+      newSelected.add(page);
+    }
+    setSelectedPages(newSelected);
+  };
+
+  const handleAllPagesToggle = () => {
+    if (isAllPagesChecked) {
+      setSelectedPages(new Set());
+    } else {
+      setSelectedPages(new Set(pages));
+    }
+  };
+
+  const [buttonState, setButtonState] = useState("default");
+
+  return (
+    <div className="min-h-screen text-[14px] leading-[130%] tracking-[0px] flex items-center  justify-center border border-[#EEEEEE]">
+      <div className="w-fit h-fit m-auto bg-white py-2.5 rounded-lg shadow-[0_8px_15px_0_hsla(0,0%,8%,0.12),0_0_4px_0_hsla(0,0%,8%,0.10)] flex flex-col">
+        {/* All pages option */}
+        <div className="flex items-center justify-between  pr-[20.5px] pl-[22px] py-[10px] ">
+          <label
+            htmlFor="all-pages"
+            className="font-normal text-[hsl(var(--text-primary))] cursor-pointer select-none"
+          >
+            All pages
+          </label>
+          <Checkbox
+            id="all-pages"
+            checked={isAllPagesChecked}
+            onCheckedChange={handleAllPagesToggle}
+            className="  border-[hsl(var(--checkbox-border))] data-[state=checked]:bg-[hsl(var(--checkbox-checked-bg))] data-[state=checked]:border-[hsl(var(--checkbox-checked-bg))] data-[state=checked]:text-white shadow-none"
+          />
+        </div>
+        <div className="px-[15px] py-[10px]">
+          <Separator />
+        </div>
+
+        {/* Scrollable pages list */}
+        <div className="h-[164px] w-[370px]  overflow-y-auto custom-scrollbar">
+          {pages.map((page, index) => (
+            <React.Fragment key={page}>
+              <div className="flex h-[42px] w-[370px] items-center justify-between pr-[20.5px] pl-[22px] py-2 ">
+                <label
+                  htmlFor={`page-${index + 1}`}
+                  className="  font-normal text-[hsl(var(--text-primary))] cursor-pointer select-none"
+                >
+                  {page}
+                </label>
+                <Checkbox
+                  id={`page-${index + 1}`}
+                  checked={selectedPages.has(page)}
+                  onCheckedChange={() => handlePageToggle(page)}
+                  className=" border-[hsl(var(--checkbox-border))] data-[state=checked]:bg-[hsl(var(--checkbox-checked-bg))] data-[state=checked]:border-[hsl(var(--checkbox-checked-bg))] data-[state=checked]:text-white shadow-none"
+                />
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
+
+        <div className="px-[15px] py-[10px]">
+          <Separator />
+        </div>
+        {/* Done button */}
+        <div className=" w-[370px]  px-[15px] py-[10px]">
+          <button
+            className={cn(
+              "w-[340px] h-10 rounded-[4px] px-5 py-2.5 leading-5 rounded-[4px]  transition-none",
+              "text-[hsl(var(--text-primary))]",
+              buttonState === "default" && "bg-[hsl(var(--yellow-button))]",
+              buttonState === "hover" && "bg-[hsl(var(--yellow-button-hover))]",
+              buttonState === "active" &&
+                "bg-[hsl(var(--yellow-button-active))]"
+            )}
+            onMouseEnter={() => setButtonState("hover")}
+            onMouseLeave={() => setButtonState("default")}
+            onMouseDown={() => setButtonState("active")}
+            onMouseUp={() => setButtonState("hover")}
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
