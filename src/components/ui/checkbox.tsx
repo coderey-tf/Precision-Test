@@ -38,7 +38,7 @@ function Checkbox({
           // Interaction driven by parent `.group` (row)
           "group-hover:border-[#BDBDBD]",
           "data-[state=checked]:group-hover:bg-[#2469F6]",
-          "data-[state=checked]:group-hover:text-[#E3E3E3]",
+          "data-[state=checked]:group-hover:text-white",
 
           // Pressed/active effect driven by parent `.group`
           "group-active:shadow-[0_0_0_3px_rgba(36,105,246,0.10)]",
@@ -60,10 +60,13 @@ function Checkbox({
             "transition-[opacity,transform,filter] duration-150",
 
             "group-hover:opacity-100",
-            "data-[state=checked]:opacity-100"
+            "data-[state=checked]:opacity-100",
+
+            "text-white group-hover:text-[#E3E3E3]",
+            "data-[state=checked]:text-white data-[state=checked]:group-hover:text-white"
           )}
         >
-          <CheckIcon className="size-3.5 text-white" />
+          <CheckIcon className="size-3.5 " />
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
     </div>
