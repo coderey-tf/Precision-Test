@@ -9,7 +9,12 @@ function Checkbox({
   ...props
 }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
   return (
-    <div className="flex h-[35px] w-[35px] items-center justify-center">
+    <div
+      className={cn(
+        "flex h-[35px] w-[35px] items-center justify-center",
+        className
+      )}
+    >
       <CheckboxPrimitive.Root
         data-slot="checkbox"
         className={cn(

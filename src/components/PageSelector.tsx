@@ -57,7 +57,7 @@ export const PageSelector = () => {
         </div>
 
         <div className="h-[164px] w-[370px]  overflow-y-auto custom-scrollbar">
-          {pages.map((page, index) => (
+          {pages.map((page) => (
             <React.Fragment key={page}>
               <div
                 className="group flex h-[42px] w-[370px] items-center justify-between pr-[15px] pl-[22px] py-2 cursor-pointer"
