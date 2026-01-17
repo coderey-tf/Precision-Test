@@ -12,7 +12,7 @@ function Checkbox({
     <div
       className={cn(
         "flex h-[35px] w-[35px] items-center justify-center",
-        className
+        className,
       )}
     >
       <CheckboxPrimitive.Root
@@ -37,7 +37,7 @@ function Checkbox({
 
           // Interaction driven by parent `.group` (row)
           "group-hover:border-[#BDBDBD]",
-          "data-[state=checked]:group-hover:bg-[#2469F6]",
+          "data-[state=checked]:group-hover:bg-[#5087F8] data-[state=checked]:group-hover:border-[#5087F8]",
           "data-[state=checked]:group-hover:text-white",
 
           // Pressed/active effect driven by parent `.group`
@@ -48,7 +48,7 @@ function Checkbox({
           // Motion
           "transition-shadow",
 
-          className
+          className,
         )}
         {...props}
       >
@@ -63,7 +63,7 @@ function Checkbox({
             "data-[state=checked]:opacity-100",
 
             "text-white group-hover:text-[#E3E3E3]",
-            "data-[state=checked]:text-white data-[state=checked]:group-hover:text-white"
+            "data-[state=checked]:text-white data-[state=checked]:group-hover:text-white",
           )}
         >
           <CheckIcon className="size-3.5 " />

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "./ui/separator";
 import Button from "./ui/button";
+import RowPage from "./RowPage";
 
 export const PageSelector = () => {
-  const [selectedPages, setSelectedPages] = useState(new Set());
+  const [selectedPages, setSelectedPages] = useState<Set<string>>(new Set());
   const [isAllPagesChecked, setIsAllPagesChecked] = useState(false);
 
   const pages = ["Page 1", "Page 2", "Page 3", "Page 4", "Page 5", "Page 6"];
@@ -59,26 +60,11 @@ export const PageSelector = () => {
         <div className="h-[164px] w-[370px]  overflow-y-auto custom-scrollbar">
           {pages.map((page) => (
             <React.Fragment key={page}>
-              <div
-                className="group flex h-[42px] w-[370px] items-center justify-between pr-[15px] pl-[22px] py-2 cursor-pointer"
-                onClick={() => handlePageToggle(page)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ")
-                    handlePageToggle(page);
-                }}
-              >
-                <span className="font-normal text-[hsl(var(--text-primary))]">
-                  {page}
-                </span>
-
-                <Checkbox
-                  checked={selectedPages.has(page)}
-                  onCheckedChange={() => handlePageToggle(page)}
-                  onClick={(e) => e.stopPropagation()}
-                />
-              </div>
+              <RowPage
+                handlePageToggle={handlePageToggle}
+                selectedPages={selectedPages}
+                page={page}
+              />
             </React.Fragment>
           ))}
         </div>
